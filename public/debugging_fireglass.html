@@ -1,0 +1,32 @@
+<html>
+<body>
+<script>
+
+document.open();
+document.write("<html><body><p>");
+for (var i in window) {
+    document.write(JSON.stringify(i));
+    document.write("<br>");
+    try {
+        document.write(window[i]);
+    } catch (error) {
+        document.write(error);
+    }
+    document.write("<br>");
+
+    try {
+        var _test = {}
+        for (j in window[i]) {
+            _test[j] = window[i][j];
+        }
+        document.write(JSON.stringify(_test));
+    } catch (error) {
+        document.write(error);
+    }
+    document.write("<br><br>");
+}
+document.write("</html></body></p>");
+document.close();
+</script>
+</body>
+</html>
