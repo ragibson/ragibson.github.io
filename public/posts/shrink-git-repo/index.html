@@ -22,7 +22,7 @@ for a shallow clone) while Blowfish is ~534 MB (~129 MB for a shallow clone)."><
 the most recent version or the entire commit history.<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> This has understandably led to a number
 of <a href=https://github.com/nunocoracao/blowfish/issues/980 target=_blank>user complaints</a>.</p><p>Most projects should be quite small and rarely <em>need</em> to exceed a few hundred MB in their Git repositories.<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></p><h2 class="relative group">What went wrong with Blowfish?<div id=what-went-wrong-with-blowfish class=anchor></div><span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style=text-decoration-line:none!important href=#what-went-wrong-with-blowfish aria-label=Anchor>#</a></span></h2><p>To understand the problem, let&rsquo;s see what&rsquo;s in this repository.</p><pre tabindex=0><code>$ ncdu ~/Desktop/blowfish
 --- ~/Desktop/blowfish ------------------
-  450.1 MiB [##########] /.git                                                                                                                                                                                                                
+  450.1 MiB [##########] /.git
    48.1 MiB [#         ] /exampleSite
     6.8 MiB [          ] /assets
     6.2 MiB [          ] /images
