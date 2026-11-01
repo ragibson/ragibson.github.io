@@ -41,18 +41,17 @@ the time, the Exxon position has returns below -9.2% and the hedged combination 
 Chevron position (right). The reduction in risk is quite limited.</figcaption></figure><p>Roughly speaking, adding a hedge introduces some new risk of its own, so the correlation needs to be extremely high to
 counteract the combined volatility. Otherwise, there is still significant risk from idiosyncratic effects.<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></p><h2 class="relative group">Simplified statistical analysis
 <span id=simplified-statistical-analysis class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#simplified-statistical-analysis aria-label=Anchor>#</a></span></h2><p>To better understand this hedge, let&rsquo;s assume that the returns of both positions are normally distributed.</p><p>$$
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#simplified-statistical-analysis aria-label=Anchor>#</a></span></h2><p>To better understand this hedge, let&rsquo;s assume that the returns of both positions are normally distributed.</p>$$
 X \sim \mathcal{N}\left(0, \sigma_X^2\right), \quad Y \sim \mathcal{N}\left(0, \sigma_Y^2\right), \quad
 \mathrm{Corr}(X, Y) = \rho
-$$</p><p>From this, we can derive the variance of returns for the hedged strategy.
-$$
+$$<p>From this, we can derive the variance of returns for the hedged strategy.</p>$$
 \implies \mathrm{Var}(X-Y) = \sigma_X^2 + \sigma_Y^2 - 2 \cdot \rho \cdot \sigma_X \cdot \sigma_Y
-$$</p><p>So, if we&rsquo;re hedging in such a way that both positions have the same volatility, \( \sigma_X = \sigma_Y \), we have</p><p>$$
+$$<p>So, if we&rsquo;re hedging in such a way that both positions have the same volatility, \( \sigma_X = \sigma_Y \), we have</p>$$
 \begin{aligned}
 \sigma_{X-Y} &= \sqrt{\sigma_X^2 + \sigma_X^2 - 2 \cdot \rho \cdot \sigma_X^2}\\
 &= \sigma_X \sqrt{2\left(1-\rho\right)}
 \end{aligned}
-$$</p><p>At the extremes,</p><ul><li>A <strong>0% correlation increases the risk about 41%</strong> to \( \sqrt{2} \), which is exactly what you would expect from
+$$<p>At the extremes,</p><ul><li>A <strong>0% correlation increases the risk about 41%</strong> to \( \sqrt{2} \), which is exactly what you would expect from
 adding two independent standard normal variables together.</li><li>A <strong>50% correlation keeps the risk unchanged</strong> \(\left( \sqrt{2\cdot(1-0.5)} = 1 \right)\). I.e., it only cancels
 out the additional risk from the hedge itself.</li><li>A <strong>100% correlation decreases the risk to zero</strong> since it represents a perfect hedge.</li></ul><figure><img class="my-0 rounded-md max-w-65ch center-figure" src=/correlation-hedging-risk/hedge-risk-impact-vs-correlation.png alt="A plot of the effect of adding a hedging position on total risk. At 0% correlation, it is about +41%. The effect
 decreases to -100% in a quadratic manner as you move towards 100% correlation."><figcaption>Correlations need to be <strong>extremely high</strong> before a hedge can cancel out most of the risk!</figcaption></figure><p>In our earlier Exxon vs. Chevron example, with an ~83% correlation, we would expect a risk reduction of \( \sqrt{2

@@ -34,10 +34,9 @@ bit more complicated.<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-n
 <span id=methodology class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#methodology aria-label=Anchor>#</a></span></h2><p>Assume we have a distribution \(X\) with parameter \(\alpha\) that controls how heavy the tails are.</p><p>We want to find the &ldquo;tailedness&rdquo; parameter \(\beta\) from a different family \(Y\) that best approximates it.</p><p>To do this, we&rsquo;ll be minimizing
 the <a href=https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence target=_blank rel=noreferrer>Kullback-Leibler (KL) divergence</a> between the
-two distributions.
-$$ \beta^{*} = \underset{\beta}{\text{arg min}}\ \underset{\sigma}{\text{min}}
+two distributions.</p>$$ \beta^{*} = \underset{\beta}{\text{arg min}}\ \underset{\sigma}{\text{min}}
 \left[\int_{-\infty}^{\infty} f_X(x; \alpha) \cdot
-\log\left(\frac{f_X(x; \alpha)}{f_Y(x; \beta, \sigma)}\right) \text{d}x\right] $$</p><p>This is <strong>equivalent to a maximum likelihood estimation fit</strong> of model distribution \(Y\) onto true distribution
+\log\left(\frac{f_X(x; \alpha)}{f_Y(x; \beta, \sigma)}\right) \text{d}x\right] $$<p>This is <strong>equivalent to a maximum likelihood estimation fit</strong> of model distribution \(Y\) onto true distribution
 \(X\).</p><p>Note:</p><ul><li><p><strong>The underlying optimization is multidimensional</strong> since these distributions have different inherent scales.<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></p><p>For example, a standard stable distribution with \(\alpha = 2\) is actually a normal distribution with standard
 deviation \(\sigma = \sqrt{2}\).</p></li><li><p><strong>This is not symmetric</strong> due to the asymmetry of KL divergence and maximum likelihood fitting.</p><p>For similar distributions, converting in one direction \((X \to Y)\) will be <em>close</em> to the other direction
 \((Y \to X)\), but they are not the same in general.</p></li></ul><h2 class="relative group">Distributions of interest

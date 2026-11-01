@@ -64,31 +64,24 @@ for <strong>a total return of 21%</strong>.</li><li>If a $100 stock <strong>goes
 for <strong>a total return of -19%</strong>.</li></ul><p>Using the logarithm naturally resolves this asymmetry quirk by converting the multiplications to additions since
 \(\ln(x \cdot y) = \ln(x) + \ln(y)\).</p><h3 class="relative group">Considering the distribution of \(S(1)\)
 <span id=considering-the-distribution-of-s1 class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#considering-the-distribution-of-s1 aria-label=Anchor>#</a></span></h3><p>Now, let&rsquo;s return to the distribution of stock returns and prices. Looking at \(t=1\) for simplicity,
-$$
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#considering-the-distribution-of-s1 aria-label=Anchor>#</a></span></h3><p>Now, let&rsquo;s return to the distribution of stock returns and prices. Looking at \(t=1\) for simplicity,</p>$$
 \begin{aligned}
 \ln\left(\frac{S(1)}{S(0)}\right) &\sim N\left(\mu, \sigma^2\right)\\
 S(1) &\sim S(0) \cdot \exp\left(N(\mu, \sigma^2)\right)
 \end{aligned}
-$$</p><p><strong>We&rsquo;ll take \(\sigma\) to be the standard deviation of annual stock returns</strong>, but what should \(\mu\) be?</p><h3 class="relative group">Determining the normal distribution&rsquo;s \(\mu\)
+$$<p><strong>We&rsquo;ll take \(\sigma\) to be the standard deviation of annual stock returns</strong>, but what should \(\mu\) be?</p><h3 class="relative group">Determining the normal distribution&rsquo;s \(\mu\)
 <span id=determining-the-normal-distributions-mu class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#determining-the-normal-distributions-mu aria-label=Anchor>#</a></span></h3><p>Really, we <strong>don&rsquo;t want our simulation to be biased</strong> towards the stock increasing or decreasing on average, so we need
 to figure out what choice of \(\mu\) keeps \(\mathbb{E}[S(1)] = S(0)\).</p><p>If we just keep \(\mu = 0\), we can find the bias by determining the PDF of that exponential term<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup> and computing a
-simple integral.<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>
-$$
+simple integral.<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup></p>$$
 \begin{aligned}
 \mathbb{E}[S(1)] &= \mathbb{E}\left[S(0) \cdot \exp\left(N\left(0,\sigma^2\right)\right)\right]\\
 &= S(0) \cdot \int_0^{\infty} x \cdot f_{\exp\left(N\left(0, \sigma^2\right)\right)}(x) \text{ d}x\\
 &= S(0) \cdot \exp\left(\frac{\sigma^2}{2}\right)
 \end{aligned}
-$$
-Okay, <strong>that drifts the normal distribution upwards by \(\sigma^2 / 2\)!</strong></p><p>We&rsquo;ll need \(\mu = -\sigma^2 / 2\) to counteract that.</p><h3 class="relative group">Fully determining the distribution of \(S(t)\)
+$$<p>Okay, <strong>that drifts the normal distribution upwards by \(\sigma^2 / 2\)!</strong></p><p>We&rsquo;ll need \(\mu = -\sigma^2 / 2\) to counteract that.</p><h3 class="relative group">Fully determining the distribution of \(S(t)\)
 <span id=fully-determining-the-distribution-of-st class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#fully-determining-the-distribution-of-st aria-label=Anchor>#</a></span></h3><p>Now, we have
-$$ S(1) = S(0) \cdot \exp\left(N\left(-\frac{\sigma^2}{2}, \sigma^2\right)\right) $$
-So, the distribution of stock returns after \(t\) years is just
-$$ \ln\left(\frac{S(t)}{S(0)}\right) \sim N\left(-\frac{\sigma^2}{2}\cdot t, \sigma^2 \cdot t\right) $$
-The reasoning here is exactly the same as why \(\left[N\left(0,\sigma^2=1\right) + N\left(0,\sigma^2=1\right)\right]
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#fully-determining-the-distribution-of-st aria-label=Anchor>#</a></span></h3><p>Now, we have</p>$$ S(1) = S(0) \cdot \exp\left(N\left(-\frac{\sigma^2}{2}, \sigma^2\right)\right) $$<p>So, the distribution of stock returns after \(t\) years is just</p>$$ \ln\left(\frac{S(t)}{S(0)}\right) \sim N\left(-\frac{\sigma^2}{2}\cdot t, \sigma^2 \cdot t\right) $$<p>The reasoning here is exactly the same as why \(\left[N\left(0,\sigma^2=1\right) + N\left(0,\sigma^2=1\right)\right]
 \sim N\left(0,\sigma^2=2\right)\).</p><figure><img class="my-0 rounded-md max-w-65ch center-figure" src=/simple-black-scholes-derivation/simulated_stock_moves.webp alt="Plot of simulated stock moves over time showing that the mean price is constant over time. Upward price moves
 appear more pronounced than downward ones."><figcaption>Example simulated stock prices and the corresponding moves of 1 standard deviation \((\pm1 \sigma)\) and 2
 standard deviations \((\pm2 \sigma)\) over time.</figcaption></figure><p>Note that upward price moves tend to be larger than downward ones! A simple way to see why this is the case is that
@@ -96,26 +89,23 @@ doubling $100 twice increases it to $400 while halving $100 twice only decreases
 for the option.</p><h2 class="relative group">And we don&rsquo;t need to do a simulation at all!
 <span id=and-we-dont-need-to-do-a-simulation-at-all class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#and-we-dont-need-to-do-a-simulation-at-all aria-label=Anchor>#</a></span></h2><p>One of the points of <strong>taking the returns to be normally distributed is so that everything can be computed
-analytically</strong>.</p><p>If your option is expiring in \(T\) years, we already know
-$$
+analytically</strong>.</p><p>If your option is expiring in \(T\) years, we already know</p>$$
 \begin{aligned}
 S(T) &\sim S(0) \cdot \exp\left[N\left(-\frac{\sigma^2}{2} \cdot T, \sigma^2\cdot T\right)\right]\\
 &\sim \exp\left[N\left(\ln S(0) - \frac{\sigma^2}{2} \cdot T, \sigma^2\cdot T\right)\right]
 \end{aligned}
-$$</p><p>One such distribution is shown below, with the portion above the strike shaded in blue. <strong>That&rsquo;s where we need to take
+$$<p>One such distribution is shown below, with the portion above the strike shaded in blue. <strong>That&rsquo;s where we need to take
 the average!</strong></p><figure><img class="my-0 rounded-md max-w-65ch center-figure" src=/simple-black-scholes-derivation/example_stock_price_distribution.webp alt='A plot of a lognormal distribution of stock prices with S(0)=$270 and sigma=15%. The portion of the probability
 density function above the strike K=$300 is shaded in blue and labelled "this is where the option has value!".'><figcaption>Example distribution of stock prices in \(T\) years.</figcaption></figure><p>So, let&rsquo;s denote the price of our (call) option as \(\widetilde{C}\). We decided that this should equal the average
 profit of
-the option.
-$$
+the option.</p>$$
 \begin{aligned}
 \widetilde{C} &= \mathbb{E}\left[S(T)-K \mid S(T) > K\right]\\
 &= \mathbb{E}\left[S(T) \mid S(T) > K\right] - K \cdot \mathbb{P}\left[S(T) > K\right]
 \end{aligned}
-$$</p><h3 class="relative group">Computing the probability term
+$$<h3 class="relative group">Computing the probability term
 <span id=computing-the-probability-term class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#computing-the-probability-term aria-label=Anchor>#</a></span></h3><p>Looking at the second term, note that
-$$
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#computing-the-probability-term aria-label=Anchor>#</a></span></h3><p>Looking at the second term, note that</p>$$
 \begin{aligned}
 K \cdot \mathbb{P}\left[S(T) > K\right] &= K \cdot
 \mathbb{P}\left[\ln\left(\frac{S(T)}{S(0)}\right) > \ln\left(\frac{K}{S(0)}\right)\right]\\
@@ -126,20 +116,17 @@ K \cdot \mathbb{P}\left[S(T) > K\right] &= K \cdot
 \left[1-\Phi\left(\frac{\ln\left(\frac{K}{S(0)}\right) +
 \frac{\sigma^2}{2} \cdot T}{\sigma \cdot \sqrt{T}}\right)\right]
 \end{aligned}
-$$
-where the last step comes from rescaling everything to a standard normal distribution.</p><h3 class="relative group">Computing the expectation term
+$$<p>where the last step comes from rescaling everything to a standard normal distribution.</p><h3 class="relative group">Computing the expectation term
 <span id=computing-the-expectation-term class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#computing-the-expectation-term aria-label=Anchor>#</a></span></h3><p>Now, let&rsquo;s figure out the average stock price for that expectation term. Luckily, we&rsquo;ve already done this integral!<sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup>
-$$
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#computing-the-expectation-term aria-label=Anchor>#</a></span></h3><p>Now, let&rsquo;s figure out the average stock price for that expectation term. Luckily, we&rsquo;ve already done this integral!<sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup></p>$$
 \begin{aligned}
 \mathbb{E}\left[S(T) \mid S(T) > K\right] &= \int_K^{\infty} x \cdot f_{S(T)}(x) \text{ d}x\\
 &= \int_K^{\infty} x \cdot f_{\exp\left[N\left(\ln S(0)-\frac{\sigma^2}{2} \cdot T, \sigma^2 \cdot T\right)\right]}(x) \text{ d}x\\
 &= S(0) \cdot \left[1-\Phi\left(\frac{\ln\left(\frac{K}{S(0)}\right) - \frac{\sigma^2}{2}\cdot T}{\sigma \sqrt{T}}\right)\right]
 \end{aligned}
-$$</p><h3 class="relative group">Finishing the derivation
+$$<h3 class="relative group">Finishing the derivation
 <span id=finishing-the-derivation class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#finishing-the-derivation aria-label=Anchor>#</a></span></h3><p>Bringing the terms together, we see
-$$
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#finishing-the-derivation aria-label=Anchor>#</a></span></h3><p>Bringing the terms together, we see</p>$$
 \begin{aligned}
 \widetilde{C} &= S(0) \cdot \left[1-\Phi\left(\frac{\ln\left(\frac{K}{S(0)}\right) -
 \frac{\sigma^2}{2}\cdot T}{\sigma \sqrt{T}}\right)\right] -
@@ -154,31 +141,24 @@ K \cdot \Phi\left(-\frac{\ln\left(\frac{K}{S(0)}\right) +
 K \cdot \Phi\left(\frac{\ln\left(\frac{S(0)}{K}\right) -
 \frac{\sigma^2}{2} \cdot T}{\sigma \cdot \sqrt{T}}\right)
 \end{aligned}
-$$</p><p><em>And that&rsquo;s the Black-Scholes formula!</em> This is more commonly simplified into
-$$
+$$<p><em>And that&rsquo;s the Black-Scholes formula!</em> This is more commonly simplified into</p>$$
 \widetilde{C} = S(0) \cdot \Phi\left(d_+\right) - K \cdot \Phi\left(d_-\right)
-$$
-with
-$$
+$$<p>with</p>$$
 d_+ = \frac{\ln\left(\frac{S(0)}{K}\right) + \frac{\sigma^2}{2}\cdot T}{\sigma \sqrt{T}},\quad
 d_- = d_+ - \sigma\sqrt{T}
-$$</p><h2 class="relative group">One final financial consideration
+$$<h2 class="relative group">One final financial consideration
 <span id=one-final-financial-consideration class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#one-final-financial-consideration aria-label=Anchor>#</a></span></h2><p>There&rsquo;s one extra detail I&rsquo;ve glossed over &ndash;
 <strong><a href=https://en.wikipedia.org/wiki/Time_value_of_money target=_blank rel=noreferrer>money today is &ldquo;worth more&rdquo; than money in the future</a></strong>.</p><p>In the Black-Scholes world, this is simply encoded as a &ldquo;risk-free rate&rdquo; \(r\) where cash grows exponentially in value
-over time.
-$$
+over time.</p>$$
 \text{Cash}(t) = e^{rt} \cdot \text{Cash}(0), \quad \text{Cash}(0) = e^{-rt} \cdot \text{Cash}(t)
-$$</p><p>Accounting for this just requires</p><ol><li>Converting our current price \(S(0)\) to future value \(\left[e^{rT} \cdot S(0)\right]\), and</li><li>Converting the future option price \(\widetilde{C}\) to current value \(
-\left[e^{-rT} \cdot \widetilde{C}\right]\)</li></ol><p>Simplifying with \(D = e^{-rT}\) gives us <strong>the actual Black-Scholes formula.</strong>
-$$
+$$<p>Accounting for this just requires</p><ol><li>Converting our current price \(S(0)\) to future value \(\left[e^{rT} \cdot S(0)\right]\), and</li><li>Converting the future option price \(\widetilde{C}\) to current value \(
+\left[e^{-rT} \cdot \widetilde{C}\right]\)</li></ol><p>Simplifying with \(D = e^{-rT}\) gives us <strong>the actual Black-Scholes formula.</strong></p>$$
 C = D \left[\frac{S(0)}{D} \cdot \Phi\left(d_+\right) - K \cdot \Phi\left(d_-\right)\right]
-$$
-with
-$$
+$$<p>with</p>$$
 d_+ = \frac{\ln\left(\frac{S(0)}{D \cdot K}\right) + \frac{\sigma^2}{2}\cdot T}{\sigma \sqrt{T}},\quad
 d_- = d_+ - \sigma\sqrt{T}
-$$</p><h2 class="relative group">See also and references
+$$<h2 class="relative group">See also and references
 <span id=see-also-and-references class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#see-also-and-references aria-label=Anchor>#</a></span></h2><p>For some more background on options and the Black-Scholes pricing model, consider the following Wikipedia pages.</p><ul><li><a href=https://en.wikipedia.org/wiki/Option_%28finance%29 target=_blank rel=noreferrer>Option</a>
 and <a href=https://en.wikipedia.org/wiki/Option_style#American_and_European_options target=_blank rel=noreferrer>Option style</a>, which discusses some
@@ -191,8 +171,7 @@ that&rsquo;s used in traditional Black-Scholes derivations</li><li><a href=https
 and <a href=https://en.wikipedia.org/wiki/Delta_neutral target=_blank rel=noreferrer>Delta neutral</a> for the hedging strategy used in the traditional
 derivation</li></ul><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>This particular type of option is a &ldquo;European call option&rdquo;.</p><ul><li><strong>&ldquo;European&rdquo;</strong> means that you can only exercise the option <strong>on the expiration date</strong></li><li><strong>&ldquo;Call&rdquo;</strong> means that it gives you the right to <strong>buy</strong> a stock in the future</li></ul><p>Importantly, you don&rsquo;t <em>need</em> to buy the stock on the expiration date. The classic &ldquo;financial-ese&rdquo; for this is that
 the option &ldquo;conveys the right, <em>but not the obligation</em>, to &mldr;&rdquo;.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>This is overly blunt, but it really was a mix of intuition and heuristics rather than anything rigorous.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>Let \(Y \sim N\left(\mu, \sigma^2\right), X \sim \exp\left(Y\right)\) and a straightforward application of the
-chain rule gives us
-$$
+chain rule gives us</p>$$
 \begin{aligned}
 f_X(x) &= \frac{\text{d}}{\text{d}x} \mathbb{P}\left[X \leq x\right]\\
 &= \frac{\text{d}}{\text{d}x}\mathbb{P}\left[Y \leq \ln x\right]\\
@@ -200,9 +179,7 @@ f_X(x) &= \frac{\text{d}}{\text{d}x} \mathbb{P}\left[X \leq x\right]\\
 &= f_Y(\ln x) \cdot \frac{1}{\sigma x}\\
 &= \frac{1}{x\sigma\cdot\sqrt{2\pi}} \exp\left(-\frac{\left(\ln x - \mu\right)^2}{2\sigma^2}\right)
 \end{aligned}
-$$
-where \(\Phi\) is the well-known CDF of the standard normal distribution.&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>The calculation here is that
-$$
+$$<p>where \(\Phi\) is the well-known CDF of the standard normal distribution.&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>The calculation here is that</p>$$
 \begin{aligned}
 \mathbb{E}[S(1)] &= S(0) \cdot \int_0^{\infty} x \cdot f_{\exp\left(N\left(0, \sigma^2\right)\right)}(x) \text{ d}x\\
 &= S(0) \cdot \int_0^{\infty} \frac{1}{\sigma\cdot\sqrt{2\pi}}
@@ -217,10 +194,8 @@ $$
 \exp\left(-\frac{\left(u-\sigma^2\right)^2}{2\sigma^2}\right) \text{ d}u\\
 &= S(0) \cdot \exp\left(\frac{\sigma^2}{2}\right)
 \end{aligned}
-$$
-The final step there is from realizing the integral is exactly the PDF of a normal distribution, so it&rsquo;s 1.&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:5><p>This is basically the same integral as before. Substituting this time with \(u = \frac{\ln(x)-\ln\left(
-S_0\right)+\frac{\sigma^2}{2}\cdot T}{\sigma\sqrt{T}}\) to normalize gives
-$$
+$$<p>The final step there is from realizing the integral is exactly the PDF of a normal distribution, so it&rsquo;s 1.&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:5><p>This is basically the same integral as before. Substituting this time with \(u = \frac{\ln(x)-\ln\left(
+S_0\right)+\frac{\sigma^2}{2}\cdot T}{\sigma\sqrt{T}}\) to normalize gives</p>$$
 \begin{aligned}
 \int_K^{\infty} x \cdot f_{S(T)}(x) \text{ d}x &=
 \int_K^{\infty} x \cdot f_{\exp\left[N\left(\ln S(0)-\frac{\sigma^2}{2} \cdot T, \sigma^2 \cdot T\right)\right]}(x) \text{ d}x\\
@@ -231,7 +206,7 @@ $$
 &= S(0) \cdot \left[1-\Phi\left(\frac{\ln K - \ln S(0) + \frac{\sigma^2}{2}\cdot T}{\sigma\sqrt{T}} - \sigma\sqrt{T} \right)\right]\\
 &= S(0) \cdot \left[1-\Phi\left(\frac{\ln\left(\frac{K}{S(0)}\right) - \frac{\sigma^2}{2}\cdot T}{\sigma \sqrt{T}}\right)\right]
 \end{aligned}
-$$&#160;<a href=#fnref:5 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></div><h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2><section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3"><article class="article-link--related relative min-h-full min-w-full overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600"><div class="flex-none relative overflow-hidden thumbnail_card_related" style=--thumbnail-aspect-ratio:1.5><img src=/posts/some4-submission/feature.webp role=presentation loading=lazy decoding=async fetchpriority=low class="nozoom not-prose absolute inset-0 w-full h-full object-cover"></div><div class=p-4><header><a href=/posts/some4-submission/ class="not-prose before:absolute before:inset-0 decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 hover:underline hover:underline-offset-2"><h2>Making the Black-Scholes Formula Accessible for SoME4</h2></a></header><div class="text-sm text-neutral-500 dark:text-neutral-400"><div class="flex flex-row flex-wrap items-center"><time datetime=2025-08-26T00:33:32-04:00>26 August 2025</time><span class="px-2 text-primary-500">&#183;</span><time datetime=2025-10-01T18:40:42-04:00>Updated: 1 October 2025</time><span class="px-2 text-primary-500">&#183;</span>
+$$&#160;<a href=#fnref:5 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></li></ol></div></div><h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2><section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3"><article class="article-link--related relative min-h-full min-w-full overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600"><div class="flex-none relative overflow-hidden thumbnail_card_related" style=--thumbnail-aspect-ratio:1.5><img src=/posts/some4-submission/feature.webp role=presentation loading=lazy decoding=async fetchpriority=low class="nozoom not-prose absolute inset-0 w-full h-full object-cover"></div><div class=p-4><header><a href=/posts/some4-submission/ class="not-prose before:absolute before:inset-0 decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 hover:underline hover:underline-offset-2"><h2>Making the Black-Scholes Formula Accessible for SoME4</h2></a></header><div class="text-sm text-neutral-500 dark:text-neutral-400"><div class="flex flex-row flex-wrap items-center"><time datetime=2025-08-26T00:33:32-04:00>26 August 2025</time><span class="px-2 text-primary-500">&#183;</span><time datetime=2025-10-01T18:40:42-04:00>Updated: 1 October 2025</time><span class="px-2 text-primary-500">&#183;</span>
 <span title="Reading time">7 mins</span></div><div class="flex flex-row flex-wrap items-center"><a class="relative mt-[0.5rem] me-2" href=/tags/manim/><span class="flex cursor-pointer"><span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">Manim
 </span></span></a><a class="relative mt-[0.5rem] me-2" href=/tags/black-scholes/><span class="flex cursor-pointer"><span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">Black-Scholes
 </span></span></a><a class="relative mt-[0.5rem] me-2" href=/tags/video/><span class="flex cursor-pointer"><span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">Video

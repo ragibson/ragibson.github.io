@@ -72,9 +72,9 @@ Performance vs. Cost." Ten sets of scatterplots are plotted, one for each tier, 
 cone of dots as the prices grow very large.'><figcaption>A plot of PC build performance against their inflation-adjusted prices from 2013-2024.</figcaption></figure><p>To me, it is clear that there is very rapid improvement per dollar for cheaper tiers, and this slows to a
 heavily <a href=https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity target=_blank rel=noreferrer>heteroskedastic</a> and roughly-linear
 trend.</p><p>Naturally, I also wanted the function to pass through the origin (as spending zero money yields zero performance), so I
-settled on a tweaked <a href=https://en.wikipedia.org/wiki/Logistic_function target=_blank rel=noreferrer>logistic function</a> with a linear asymptote.</p><p>$$
+settled on a tweaked <a href=https://en.wikipedia.org/wiki/Logistic_function target=_blank rel=noreferrer>logistic function</a> with a linear asymptote.</p>$$
 f(x) = \frac{a}{1 + b \cdot \exp(-c \cdot x)} + d \cdot x - \frac{a}{1+b}
-$$</p><p>The plot below displays the result of a least squares fit with this function, providing performance as a function of
+$$<p>The plot below displays the result of a least squares fit with this function, providing performance as a function of
 price. Importantly, the fit was actually applied to log-performance data to address the heteroskedasticity.</p><figure><img class="my-0 rounded-md max-w-65ch center-figure" src=/optimal-pc-build-model/PC_build_performance_vs_cost_with_fit.png alt='The same plot from above, but with a black dashed curve plotted on top of the data. That curve looks like two 
 lines connected in the middle by an elongated "S", and passes through the middle of the cloud of data points.'><figcaption>A model fit of PC build performance as a function of inflation-adjusted price.</figcaption></figure><p>As with the earlier fit, this appears to be quite good overall. However, there&rsquo;s some inconsistency across time in the
 data for costs exceeding ~$2000, so I would caution interpreting predictions beyond that point.</p><h2 class="relative group">Model results

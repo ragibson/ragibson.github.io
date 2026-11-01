@@ -33,21 +33,21 @@ about how these calculations can be performed in general.</p><p>Below, we&rsquo;
 in <a href=/posts/analytic-early-retirement-calculator/>&ldquo;Analytic Early Retirement Calculator&rdquo;</a>.</p><h2 class="relative group">Setting up the problem
 <span id=setting-up-the-problem class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#setting-up-the-problem aria-label=Anchor>#</a></span></h2><p>In our simple calculations, there are effectively five parameters.</p><ul><li>Annual savings, \( s \)</li><li>Annual expenses, \( x \)</li><li>Current portfolio value, \( p \)</li><li>Annual return rate (after inflation and taxes), \( r \), defaulting to 1.05<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup></li><li>Annual withdrawal rate in retirement, \( w \), defaulting to 0.04<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></li></ul><p>In some calculations, annual post-tax income (i.e., \( s + x \)) is used in the place of savings or expenses.</p><p>With these parameters defined, we can compute how retirement savings grow over time. Assuming annual savings are
-continuously invested, we have the following total at time \( T \).</p><p>$$
+continuously invested, we have the following total at time \( T \).</p>$$
 \begin{aligned}
 \text{Savings}(T) &= p \cdot r^T + \int_0^T s \cdot r^t \text{ d}t \\
 &= p \cdot r^T + s \cdot \frac{r^T - 1}{\ln(r)}
 \end{aligned}
-$$</p><p>The first term represents the growing value of the current portfolio, while the second term represents the value of the
+$$<p>The first term represents the growing value of the current portfolio, while the second term represents the value of the
 continuously invested savings. Both share the same growth rate, \( r \).</p><p>Then, you should be able to retire once your withdrawal rate alone provides enough income to cover your annual
-expenses completely.</p><p>$$
+expenses completely.</p>$$
 \begin{aligned}
 \text{Savings}(T) \cdot w &\geq x \\
 \text{Savings}(T) &\geq \frac{x}{w}
 \end{aligned}
-$$</p><p>With these equations, we can solve for any of the parameters in terms of the others.</p><h2 class="relative group">Calculating time until retirement
+$$<p>With these equations, we can solve for any of the parameters in terms of the others.</p><h2 class="relative group">Calculating time until retirement
 <span id=calculating-time-until-retirement class=anchor></span>
-<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#calculating-time-until-retirement aria-label=Anchor>#</a></span></h2><p>Setting retirement savings equal to the final required portfolio value, we can find the time until retirement.</p><p>$$
+<span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#calculating-time-until-retirement aria-label=Anchor>#</a></span></h2><p>Setting retirement savings equal to the final required portfolio value, we can find the time until retirement.</p>$$
 \begin{aligned}
 \text{Savings}(T) &= \frac{x}{w} \\
 p \cdot r^T + s \cdot \frac{r^T - 1}{\ln(r)} &= \frac{x}{w} \\
@@ -56,46 +56,46 @@ r^T &= \frac{\frac{x}{w} + \frac{s}{\ln(r)}}{p + \frac{s}{\ln(r)}} \\
 r^T &= \frac{x\ln(r) + s \cdot w}{p \cdot w\ln(r) + s \cdot w} \\
 T &= \frac{\ln\left[x\ln(r) + s \cdot w\right] - \ln\left[p \cdot w\ln(r) + s \cdot w\right]}{\ln(r)}
 \end{aligned}
-$$</p><p>For example, someone that makes $50k, saves $7k, and has $25k currently invested should be able to retire in ~40.6
-years.</p><p>$$
+$$<p>For example, someone that makes $50k, saves $7k, and has $25k currently invested should be able to retire in ~40.6
+years.</p>$$
 \begin{aligned}
 T &= \frac{\ln\left[x\ln(r) + s \cdot w\right] - \ln\left[p \cdot w\ln(r) + s \cdot w\right]}{\ln(r)} \\
 &= \frac{\ln\left[43000 \cdot \ln(1.05) + 7000 \cdot 0.04\right] -
 \ln\left[25000 \cdot 0.04 \cdot \ln(1.05) + 7000 \cdot 0.04\right]}{\ln(1.05)} \\
 &\approx \frac{7.7740 - 5.7954}{0.04879} \approx 40.6 \text{ years}
 \end{aligned}
-$$</p><h2 class="relative group">Calculating current savings required to meet retirement goal
+$$<h2 class="relative group">Calculating current savings required to meet retirement goal
 <span id=calculating-current-savings-required-to-meet-retirement-goal class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#calculating-current-savings-required-to-meet-retirement-goal aria-label=Anchor>#</a></span></h2><p>In this case, let \( \text{income} = s+x \) represent the user&rsquo;s income. Then, we can solve for the savings needed to
-retire after a specified number of years.</p><p>$$
+retire after a specified number of years.</p>$$
 \begin{aligned}
 \text{Savings}(T) &= \frac{\text{income} - s}{w} \\
 p \cdot r^T + s \cdot \frac{r^T - 1}{\ln(r)} &= \frac{\text{income} - s}{w} \\
 p \cdot w \cdot r^T + s \left[ \frac{w \left(r^T - 1\right)}{\ln(r)} + 1 \right] &= \text{income} \\
 s &= \ln(r) \cdot \frac{\text{income} - p \cdot w \cdot r^T}{w \left(r^T - 1\right) + \ln(r)}
 \end{aligned}
-$$</p><p>For example, someone that makes $50k with $100k invested must save ~$8,785 annually to retire in 30 years.</p><p>$$
+$$<p>For example, someone that makes $50k with $100k invested must save ~$8,785 annually to retire in 30 years.</p>$$
 \begin{aligned}
 s &= \ln(r) \cdot \frac{\text{income} - p \cdot w \cdot r^T}{w \left(r^T - 1\right) + \ln(r)} \\
 &= \ln(1.05) \cdot \frac{50000 - 100000 \cdot 0.04 \cdot 1.05^{30}}{0.04 \left(1.05^{30} - 1\right) + \ln(1.05)} \\
 &\approx 0.04879 \cdot \frac{50000 - 17288}{0.13288 + 0.04879} \approx \$8785
 \end{aligned}
-$$</p><h2 class="relative group">Calculating current portfolio required to meet retirement goal
+$$<h2 class="relative group">Calculating current portfolio required to meet retirement goal
 <span id=calculating-current-portfolio-required-to-meet-retirement-goal class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#calculating-current-portfolio-required-to-meet-retirement-goal aria-label=Anchor>#</a></span></h2><p>Lastly, we can solve for the current investment portfolio you would need to be on track for retiring in a specified
-number of years.</p><p>$$
+number of years.</p>$$
 \begin{aligned}
 \text{Savings}(T) &= \frac{x}{w} \\
 p \cdot r^T + s \cdot \frac{r^T - 1}{\ln(r)} &= \frac{x}{w} \\
 p &= r^{-T} \cdot \left[ s \cdot \frac{1 - r^T}{\ln(r)} + \frac{x}{w} \right]
 \end{aligned}
-$$</p><p>For example, someone that makes $50k and saves $10k would need ~$375k of current investments to retire in 15 years.</p><p>$$
+$$<p>For example, someone that makes $50k and saves $10k would need ~$375k of current investments to retire in 15 years.</p>$$
 \begin{aligned}
 p &= r^{-T} \cdot \left[ s \cdot \frac{1 - r^T}{\ln(r)} + \frac{x}{w} \right] \\
 &= 1.05^{-15} \cdot \left[ 10000 \cdot \frac{1 - 1.05^{15}}{\ln(1.05)} + \frac{40000}{0.04} \right] \\
 &\approx 0.48102 \left[ 10000 \cdot \frac{-1.0789}{0.04879} + 1000000 \right] \approx \$374650
 \end{aligned}
-$$</p><p>I would highly encourage playing around with the formulas (especially in the interactive calculator) to see how small
+$$<p>I would highly encourage playing around with the formulas (especially in the interactive calculator) to see how small
 tweaks to savings can make a massive difference in your retirement timeline. Otherwise, play around with different
 assumptions and make the calculations more comprehensive or complicated as you see fit!</p><h2 class="relative group">See also and references
 <span id=see-also-and-references class=anchor></span>

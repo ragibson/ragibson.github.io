@@ -70,11 +70,9 @@ crisis outliers and ignores the possibility that mean reversion has weakened ove
 have become more efficient.</p><p>Additionally, keep in mind that all returns discussed are nominal and not adjusted for inflation.</p><h3 class="relative group">Choosing a model
 <span id=choosing-a-model class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#choosing-a-model aria-label=Anchor>#</a></span></h3><p>The most straightforward mean-reverting model is
-the <a href=https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process target=_blank rel=noreferrer>Ornstein-Uhlenbeck process</a>,
-$$
+the <a href=https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process target=_blank rel=noreferrer>Ornstein-Uhlenbeck process</a>,</p>$$
 dr_t = -\theta\left(\mu - r_t\right) dt + \sigma dW_t
-$$
-This has returns \( r_t \) reverting back to a long-term average, \( \mu \), with reversion speed controlled by \(
+$$<p>This has returns \( r_t \) reverting back to a long-term average, \( \mu \), with reversion speed controlled by \(
 \theta \).<sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup></p><p>However, I would like to enhance it in a few ways.</p><ol><li><p><strong>Fat tails and skew</strong>: I replace the Brownian motion term, \( dW_t \), with
 a <a href=https://en.wikipedia.org/wiki/Stable_distribution target=_blank rel=noreferrer>stable Lévy process</a>, \( dL_t^{\alpha,
 \beta} \). This better fits the empirical fat-tailed and right-skewed nature of stock market returns, which simple
@@ -82,11 +80,9 @@ normal distributions cannot capture.</p><p>This also prevents the calibration &l
 complication.<sup id=fnref:9><a href=#fn:9 class=footnote-ref role=doc-noteref>9</a></sup></p></li><li><p><strong>&ldquo;Trend reversion&rdquo;</strong>: The whole point of this analysis is to perform an estimate that assumes stocks will revert
 back to a global (exponential) price trend rather than just have returns reverting back to a long-term average.</p><p>Luckily, this makes the effect of the reversion parameter more pronounced and thus easier to estimate.</p><p>To be clear, I do <em>not</em> think this is a particularly good assumption, but it is precisely the thought that kicked off
 this whole experiment.</p></li></ol><p>As such, we use the following stochastic process, which I&rsquo;ll refer to as <strong>Stable Trend-Reverting Ornstein-Uhlenbeck</strong>
-(&ldquo;STROU&rdquo;).
-$$
+(&ldquo;STROU&rdquo;).</p>$$
 dr_t = \mu \cdot dt + \theta\left(\mu \cdot t + \hat{r_0} - r_t\right) dt + \sigma dL_t^{\alpha, \beta}
-$$
-where the actual price level follows \( S_t = S_0 \exp(r_t) \).</p><p>This process is parameterized by</p><ul><li><strong>\(\alpha \in (0, 2]\), which controls the fatness</strong> of the noise term&rsquo;s tails (\(\alpha=2\) is a normal
+$$<p>where the actual price level follows \( S_t = S_0 \exp(r_t) \).</p><p>This process is parameterized by</p><ul><li><strong>\(\alpha \in (0, 2]\), which controls the fatness</strong> of the noise term&rsquo;s tails (\(\alpha=2\) is a normal
 distribution, with smaller values giving fatter tails)</li><li><strong>\(\beta \in [-1, 1]\), which controls the skew</strong> of the noise term (\(\beta = 0\) has no skew)</li><li><strong>\(\sigma\), the scale of the noise term</strong>. This tends to decrease as \(\alpha\) decreases since that also
 &ldquo;widens&rdquo; the distribution</li><li><strong>\(\mu\), the long-term drift</strong> of the process <em>and</em> global trend towards which the returns revert</li><li>\(\hat{r_0}\), an estimate for calibration convenience of the process&rsquo;s starting point relative to the global trend</li></ul><p>In other words, \(\alpha, \beta, \sigma\) control the distribution of the noise term and the returns revert back to a
 long-term \( \mu \cdot t + \hat{r_0} \) trend based on speed \( \theta \).</p><h3 class="relative group">Calibrating the model

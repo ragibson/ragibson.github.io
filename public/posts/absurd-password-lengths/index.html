@@ -46,10 +46,9 @@ words, breaking a 256-bit scheme is as challenging as breaking 300 trillion tril
 <span id=the-limits-of-a-typical-online-attack class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#the-limits-of-a-typical-online-attack aria-label=Anchor>#</a></span></h2><p>Now, lets look at the limits of what a practical attack could look like.</p><p>An online service should have rate limiting so you can&rsquo;t try a hundred passwords all at once, but let&rsquo;s say that the
 implementation is poor or there is an unknown exploit allowing you to check password validity as often as the network
-allows.</p><p>Assuming one guess per millisecond over an entire year, you can break ~35 bits of security.
-$$
+allows.</p><p>Assuming one guess per millisecond over an entire year, you can break ~35 bits of security.</p>$$
 \left(1 \text{ kHz}\right) \cdot \left(1 \text{ year}\right) \approx 2^{34.9} \approx 3.2 \cdot 10^{10}
-$$</p><p>That is less than the entropy of <code>keV#]i</code>, a 6-character password.</p><p>However, the real concern is in an offline attack where someone has gained access to a database leak or exfiltrated data
+$$<p>That is less than the entropy of <code>keV#]i</code>, a 6-character password.</p><p>However, the real concern is in an offline attack where someone has gained access to a database leak or exfiltrated data
 from the servers themselves. In those cases, you can easily test passwords with all the computational power you have on
 hand and never have to worry about network delays.</p><h2 class="relative group">The limits of practical offline attacks
 <span id=the-limits-of-practical-offline-attacks class=anchor></span>
@@ -62,28 +61,25 @@ a service that you use.</p><h3 class="relative group">A lone hacker
 <a href=https://en.wikipedia.org/wiki/Intel_Arc target=_blank rel=noreferrer>Arc A750</a>, <a href=https://en.wikipedia.org/wiki/Radeon_RX_7000_series target=_blank rel=noreferrer>RX 7900 XTX</a>,
 or <a href=https://en.wikipedia.org/wiki/GeForce_40_series target=_blank rel=noreferrer>RTX 4060 Ti</a>.</p><p>Let&rsquo;s say a lone hacker has $10k to throw around and salvages the rest of their rigs for free from tech recycling or
 theft. They also siphon free electricity directly from the grid or an unsuspecting industrial company. In our idealized
-scenario, this yields a guess rate of 700 THz.</p><p>Over 1 year, they can break ~74 bits of security.
-$$
+scenario, this yields a guess rate of 700 THz.</p><p>Over 1 year, they can break ~74 bits of security.</p>$$
 \left(700 \text{ THz}\right) \cdot \left(1 \text{ year}\right) \approx 2^{74.2} \approx 2.2 \cdot 10^{22}
-$$</p><p>For reference, that&rsquo;s under the entropy of <code>iDif2$isXM&:</code>, a 12-character password.</p><p>Realistically, common attacks just run through every credential in a leak and exploit the users with the weakest
+$$<p>For reference, that&rsquo;s under the entropy of <code>iDif2$isXM&:</code>, a 12-character password.</p><p>Realistically, common attacks just run through every credential in a leak and exploit the users with the weakest
 passwords. If a hacker is willing to spend a year cracking yours in particular, you are probably a high profile
 individual and have much bigger issues to worry about.</p><h3 class="relative group">A state actor
 <span id=a-state-actor class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#a-state-actor aria-label=Anchor>#</a></span></h3><p>Since 2018, multiple supercomputers and public distributed systems have achieved performance above 1 exaFLOPS (1 million
 TFLOPS). It is reasonable to suspect this is within the abilities of the major superpowers of the world, especially
 through botnets and classified supercomputers. In
-fact, <a href=https://web.archive.org/web/20120526132714/http://www.nccs.gov/wp-content/media/nccs_reports/Science%20Case%20_012808%20v3__final.pdf target=_blank rel=noreferrer>the U.S. was planning such systems as far back as 2007-2008</a>.</p><p>As of June 2023, the United States has at least 3.5 EFLOPS of (non-distributed) supercomputing power.<sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup></p><p>Over 1 year, this would break ~87 bits of security.
-$$
+fact, <a href=https://web.archive.org/web/20120526132714/http://www.nccs.gov/wp-content/media/nccs_reports/Science%20Case%20_012808%20v3__final.pdf target=_blank rel=noreferrer>the U.S. was planning such systems as far back as 2007-2008</a>.</p><p>As of June 2023, the United States has at least 3.5 EFLOPS of (non-distributed) supercomputing power.<sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup></p><p>Over 1 year, this would break ~87 bits of security.</p>$$
 \left(3.5 \text{ EHz}\right) \cdot \left(1 \text{ year}\right) \approx 2^{86.5} \approx 1.1 \cdot 10^{26}
-$$</p><p>This could break <code>y1V"5)C{Kqam=</code>, a 13-character password, but nothing more.</p><p>Huge distributed systems can be more powerful, but are unlikely to be controlled by a single entity. That said,
+$$<p>This could break <code>y1V"5)C{Kqam=</code>, a 13-character password, but nothing more.</p><p>Huge distributed systems can be more powerful, but are unlikely to be controlled by a single entity. That said,
 people have managed to run requests on AWS that would have ranked as one of the most powerful supercomputers in the
 world.<sup id=fnref:6><a href=#fn:6 class=footnote-ref role=doc-noteref>6</a></sup></p><h3 class="relative group">The global computing power
 <span id=the-global-computing-power class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#the-global-computing-power aria-label=Anchor>#</a></span></h3><p>It is difficult to estimate the total computing power of the human race, but it is likely below 10 zettaFLOPs (i.e., 1
-thousand ExaFLOPS).<sup id=fnref:7><a href=#fn:7 class=footnote-ref role=doc-noteref>7</a></sup> For comparison, the hash rate of the entire Bitcoin network is currently ~500 EHz.</p><p>Over 1 year, this would break ~98 bits of security.
-$$
+thousand ExaFLOPS).<sup id=fnref:7><a href=#fn:7 class=footnote-ref role=doc-noteref>7</a></sup> For comparison, the hash rate of the entire Bitcoin network is currently ~500 EHz.</p><p>Over 1 year, this would break ~98 bits of security.</p>$$
 \left(10 \text{ ZHz}\right) \cdot \left(1 \text{ year}\right) \approx 2^{98.0} \approx 3.2 \cdot 10^{29}
-$$</p><p>This could almost break <code>+-5{;C:pPf?JcPy</code>, a 15-character password with ~98.5 bits of entropy.<sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup></p><h3 class="relative group">The limits of physics
+$$<p>This could almost break <code>+-5{;C:pPf?JcPy</code>, a 15-character password with ~98.5 bits of entropy.<sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup></p><h3 class="relative group">The limits of physics
 <span id=the-limits-of-physics class=anchor></span>
 <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"><a class="text-primary-300 dark:text-neutral-700 !no-underline" href=#the-limits-of-physics aria-label=Anchor>#</a></span></h3><p>There is a sci-fi concept called a <a href=https://en.wikipedia.org/wiki/Matrioshka_brain target=_blank rel=noreferrer>Matrioshka brain</a>, which is a
 massive structure that would consume the entire energy output of a star to power a supercomputer of unbelievable
@@ -92,19 +88,14 @@ at <a href=https://en.wikipedia.org/wiki/Landauer%27s_principle target=_blank re
 <a href=https://en.wikipedia.org/wiki/Carnot_heat_engine target=_blank rel=noreferrer>the theoretical limit of thermodynamic efficiency</a>, you can achieve
 \({\approx}1.45 \cdot 10^{49}\) Hz of processing power.<sup id=fnref:9><a href=#fn:9 class=footnote-ref role=doc-noteref>9</a></sup> Scaling up to the luminosity of the entire Milky Way
 galaxy yields \({\approx} 3 \cdot 10^{60}\) Hz of processing power.</p><figure><img class="my-0 rounded-md max-w-65ch center-figure" src=/absurd-password-lengths/matrioshka-brain.jpg alt="A giant sphere of metal surrounding a sun in outer space. Small specks of light peak through the small holes in its
-massive grids of wires."><figcaption>An illustration of a Matrioshka brain, all devoted to cracking a single password.</figcaption></figure><p>Over 1 year, the Sun&rsquo;s brain breaks ~188 bits of security,
-$$
+massive grids of wires."><figcaption>An illustration of a Matrioshka brain, all devoted to cracking a single password.</figcaption></figure><p>Over 1 year, the Sun&rsquo;s brain breaks ~188 bits of security,</p>$$
 \left(1.45 \cdot 10^{49} \text{ Hz}\right) \cdot \left(1 \text{ year}\right) \approx 2^{188.2} \approx 4.6 \cdot 10^{56}
-$$
-and the Milky Way&rsquo;s brain breaks ~226 bits of security.
-$$
+$$<p>and the Milky Way&rsquo;s brain breaks ~226 bits of security.</p>$$
 \left(3 \cdot 10^{60} \text{ Hz}\right) \cdot \left(1 \text{ year}\right) \approx 2^{225.8} \approx 9.5 \cdot 10^{67}
-$$
-Over the entire age of the universe, the Milky Way&rsquo;s brain breaks ~260 bits of security.
-$$
+$$<p>Over the entire age of the universe, the Milky Way&rsquo;s brain breaks ~260 bits of security.</p>$$
 \left(3 \cdot 10^{60} \text{ Hz}\right) \cdot \left(13.8 \text{ billion years}\right) \approx 2^{259.5} \approx 1.3
 \cdot 10^{78}
-$$</p><p>Essentially,</p><ul><li>Annually, the sun can break <code>[2\p2%i@KabWM4hr&*m|!aok%S.o</code>, a 28-character password with ~184 bits of entropy.</li><li>Annually, the Milky Way can break <code>KHH|j}&lt;$>o8CnCg^Hc8s#I:',JzW3h^%d$</code>, a 34-character password with ~223 bits of
+$$<p>Essentially,</p><ul><li>Annually, the sun can break <code>[2\p2%i@KabWM4hr&*m|!aok%S.o</code>, a 28-character password with ~184 bits of entropy.</li><li>Annually, the Milky Way can break <code>KHH|j}&lt;$>o8CnCg^Hc8s#I:',JzW3h^%d$</code>, a 34-character password with ~223 bits of
 entropy.</li><li>Over the age of the universe, the Milky Way can break <code>C]Y9.1V+dYrA2[3rl?ZF1K9n=re~hUAVh+BJk|P</code>, a 39-character
 password with ~256 bits of entropy.</li></ul><p>Notably, the final calculation that spans the age of our universe at the current luminosity of the entire galaxy barely
 exceeds 256 bits of security. Under these calculations, humanity will never break such a scheme by sheer brute force.</p><p>If someone tries to give you a password or API key longer than that, you can explain to them that it is absolutely
